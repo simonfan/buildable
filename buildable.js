@@ -16,7 +16,8 @@ define(['underscore'], function(undef) {
 
 			var args = Array.prototype.slice.call(arguments, 0)
 
-			obj.init.apply(this, args);
+			// call obj's init method in its own context!!! 
+			obj.init.apply(obj, args);
 			return obj;
 		},
 		extend: function() {
