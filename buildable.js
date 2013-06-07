@@ -11,7 +11,7 @@ define(['underscore'], function(undef) {
 
 	var Buildable = {
 		init: function() {},	// no-op to be overriden by objects
-		build: function(data) {
+		build: function() {
 			var obj = Object.create(this);
 
 			var args = Array.prototype.slice.call(arguments, 0)
