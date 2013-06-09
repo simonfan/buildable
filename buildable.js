@@ -1,4 +1,5 @@
-define(['underscore'], function(undef) {
+define(['backbone','underscore'],
+function(Backbone , undef      ) {
 
 	// define the Object.create method.
 	if (typeof Object.create !== 'function') {
@@ -28,7 +29,9 @@ define(['underscore'], function(undef) {
 
 			return _.extend.apply(null, args);
 		}
-	}
+	};
+
+	Buildable.extend(Backbone.Events);
 
 	return Buildable;
 });
