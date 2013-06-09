@@ -11,12 +11,13 @@ function(undef      , undef    ) {
 	}
 
 	var Buildable = {
-	//	init: function() {},	// no-op to be overriden by objects
-
-		// effective initializer
-		_init: function() {
-			var _this = this,
-				args = _.args(arguments);
+		// .__init(args) calls all '.init' methods that are registered
+		// in the .__initqueue array.
+		// It accepts only one argument: an array with arguments to be passed
+		// on to all initializer methods.
+		__init: function(args) {
+			// args is and array to be passed as arguments to the init methods.
+			var _this = this;
 
 			_.each(this.__initqueue, function(initializer, order) {
 				initializer.apply(_this, args);
@@ -25,16 +26,26 @@ function(undef      , undef    ) {
 
 		//////// INTERFACE //////////
 
+		// .build() returns an 'instance' of the object.
+		// It receives any number of arguments, all of which are passed to all registered 
+		// '.init()' methods (in the .__initqueue)
 		build: function() {
 			var obj = Object.create(this),
 				args = _.args(arguments);
 
 			// call obj's init method in its own context!!! 
-			obj._init.apply(obj, args);
+			obj.__init(args);
 
 			// set 
 			return obj;
 		},
+
+		// .extend() copies all properties from its arguments to
+		// the current this object's properties.
+		// Before doing this copy, the method checks if the 'extension' objects
+		// have a method named 'init'. If so, that method is 
+		// added to a queue, the .__initqueue, which contains all initialization
+		// methods to be called when the object is actually instatiated (when .build() is called).
 		extend: function() {
 
 			var _this = this,
@@ -53,13 +64,13 @@ function(undef      , undef    ) {
 				}
 			});
 
-			// add this object to the array
+			// add this object to the array, so that it is the first object
+			// and so all properties from the other args are copied into this object
 			args.unshift(this);
 
 			var extended = _.extend.apply(null, args);
 
-			extended.__initqueue = initqueue;
-			return extended;
+			this.__initqueue = extended.__initqueue = initqueue;
 		},
 	};
 
