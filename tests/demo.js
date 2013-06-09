@@ -19,4 +19,26 @@ define(['buildable'], function(Buildable) {
 	window.demo2 = Demo.build('demo2', { b: 9 });
 
 	console.log('Component module demo running');
+
+
+
+
+	window.tree = {
+		ancestral: {
+			init: 'ancestral',
+		},
+		parent: {
+			init: function() {
+				return 'parent'
+			}
+		},
+		child: {}
+	}
+
+
+	window.object = Object.create(Buildable);
+	object.extend(tree.ancestral);
+	object.extend(tree.parent);
+
+	console.log(object);
 });

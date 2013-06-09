@@ -3,10 +3,10 @@ require.config({
 	baseUrl: '',
 	paths: {
 		// basic libraries
-		'jquery': 'components/jquery/jquery',
 		'underscore': 'components/underscore/underscore',
-		'backbone': 'components/backbone/backbone',
 
+		'_.mixins': 'components/_.mixins/_.mixins',
+		
 		// the module files go here
 		'buildable': '../buildable',
 
@@ -17,7 +17,7 @@ require.config({
 		'tests-main': 'tests',	// the main file for tests
 
 		// other tests go here
-		'example-tests': 'tests/example-tests',
+		'tests': 'tests/buildable.test',
 	},
 	shim: {
 		'backbone': {
