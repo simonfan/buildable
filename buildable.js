@@ -54,8 +54,7 @@ function(undef      , undef    ) {
 
 			// create the initqueue or override the existing one.
 			var initqueue = this.__initqueue ? _.clone(this.__initqueue) : [];
-			console.log(initqueue)
-
+			
 			// extract the initializers from the extend objects and add them to 
 			// the initialization queue.
 			_.each(args, function(obj, index) {
